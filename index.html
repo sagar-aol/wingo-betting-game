@@ -17,7 +17,7 @@
         background: linear-gradient(135deg, #0f0c29, #1a1a2e, #16213e);
         color: #f0f0f0;
         min-height: 100vh;
-        padding: 20px;
+        /* padding: 20px; */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -31,7 +31,8 @@
         display: grid;
         grid-template-columns: 1fr 2fr 1fr;
         gap: 20px;
-        height: 70vh;
+        margin-top: 10rem;
+        /* height: 70vh; */
         /* margin-bottom: 60px; */
       }
 
@@ -47,19 +48,20 @@
         align-items: center;
         gap: 20px;
         padding: 5px 0 10px;
-        background: rgba(10, 10, 25, 0.2);
+        background: rgba(10, 10, 25, 0.7);
         backdrop-filter: blur(5px);
         border-radius: 0 0 50% 50%;
+        height: 7rem;
       }
 
       .game-title {
-        font-size: 3.2rem;
+        font-size: 3rem;
         font-weight: 800;
         background: linear-gradient(45deg, #ff6b6b, #00b894, #00c8ff);
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        text-shadow: 0 0 20px rgba(0, 200, 255, 0.3);
+        text-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
         letter-spacing: 2px;
       }
 
@@ -853,17 +855,17 @@
       .rules-content {
         background: rgba(20, 20, 40, 0.95);
         border-radius: 15px;
-        padding: 30px;
+        padding: 20px;
         max-width: 800px;
-        width: 100%;
-        max-height: 90vh;
+        width: 90%;
+        max-height: 50vh;
         overflow-y: auto;
         position: relative;
       }
 
       .close-rules {
         position: absolute;
-        top: 20px;
+        top: 10px;
         right: 20px;
         background: none;
         border: none;
@@ -881,7 +883,7 @@
         font-size: 2rem;
         margin-bottom: 20px;
         color: #4ecdc4;
-        text-align: center;
+        /* text-align: center; */
         text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
       }
 
@@ -966,7 +968,7 @@
         position: relative;
         width: 100%;
         max-width: 330px;
-        margin: 20px auto 0;
+        margin: 2rem auto 15vh;
       }
 
       .carousel-header {
@@ -1016,8 +1018,8 @@
       @media (max-width: 1200px) {
         .game-container {
           grid-template-columns: 1fr;
-          height: auto;
-          margin-top: 5rem;
+          /* height: auto; */
+          /* margin-top: 7rem; */
         }
 
         .history-panel {
@@ -1036,6 +1038,9 @@
       }
 
       @media (max-width: 768px) {
+        .game-container {
+          max-width: 330px;
+        }
         .amount-grid {
           grid-template-columns: repeat(4, 1fr);
         }
@@ -1051,14 +1056,6 @@
 
         .bet-buttons {
           gap: 15px;
-        }
-
-        .game-title {
-          font-size: 2.5rem;
-        }
-
-        .game-header {
-          gap: 10px;
         }
 
         /* Mobile modal adjustments */
@@ -1114,9 +1111,9 @@
         }
 
         /* Compact rules modal */
-        .rules-content {
+        /* .rules-content {
           padding: 20px;
-        }
+        } */
 
         .rules-title {
           font-size: 1.8rem;
@@ -1477,7 +1474,7 @@
       document.addEventListener("DOMContentLoaded", () => {
         // Game configuration
         const config = {
-          startingWallet: 5000,
+          startingWallet: 2000,
           feePercentage: 0.02,
           roundDuration: 30,
           payoutMultiplier: 1.96
