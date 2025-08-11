@@ -22,15 +22,16 @@
         justify-content: center;
         align-items: center;
         overflow-x: hidden;
+        padding: 20px;
       }
 
       .game-container {
         width: 100%;
-        max-width: 85vw;
+        max-width: 80vw;
         display: grid;
         grid-template-columns: 1fr 2fr 1fr;
         gap: 20px;
-        margin-top: 10rem;
+        margin-top: 15rem;
       }
 
       .game-header {
@@ -38,22 +39,19 @@
         top: 0;
         left: 0;
         right: 0;
-        text-align: center;
         z-index: 10;
+        text-align: center;
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
         gap: 20px;
         padding: 5px 0 10px;
         background: rgba(10, 10, 25, 0.7);
         backdrop-filter: blur(5px);
-        border-radius: 0 0 100% 100%;
+        border-radius: 0 0 50% 50%;
         height: 7rem;
-        transition: transform 0.3s ease;
-      }
-
-      .game-header.scrolled {
-        transform: translateY(-100%);
+        user-select: none;
       }
 
       .game-title {
@@ -65,12 +63,6 @@
         -webkit-text-fill-color: transparent;
         text-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
         letter-spacing: 2px;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-      }
-
-      .game-title:hover {
-        transform: scale(1.05);
       }
 
       .info-btn {
@@ -94,7 +86,137 @@
         background: rgba(60, 60, 100, 0.9);
         color: #00c8ff;
       }
+      /* RULES MODAL STYLES */
 
+      .rules-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(10, 10, 20, 0.95);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 3000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        padding: 20px;
+      }
+
+      .rules-modal.show {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .rules-content {
+        background: rgba(20, 20, 40, 0.95);
+        border-radius: 15px;
+        padding: 20px;
+        max-width: 800px;
+        width: 90%;
+        max-height: 50vh;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      .close-rules {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        background: none;
+        border: none;
+        color: #ff6b6b;
+        font-size: 1.8rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .close-rules:hover {
+        transform: rotate(90deg);
+      }
+
+      .rules-title {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #4ecdc4;
+        text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+      }
+
+      .rules-section {
+        margin-bottom: 25px;
+      }
+
+      .section-header {
+        font-size: 1.4rem;
+        color: #00b894;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .rules-list {
+        padding-left: 30px;
+      }
+
+      .rules-list li {
+        margin-bottom: 12px;
+        line-height: 1.6;
+      }
+
+      .highlight {
+        color: #f39c12;
+        font-weight: bold;
+      }
+
+      .negative {
+        color: #ff6b6b;
+      }
+
+      .positive {
+        color: #00b894;
+      }
+
+      .sound-toggle-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        padding: 10px;
+      }
+
+      .sound-toggle {
+        background: rgba(40, 40, 60, 0.9);
+        border: 2px solid #4ecdc4;
+        border-radius: 50px;
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .sound-toggle:hover {
+        background: rgba(60, 60, 100, 0.9);
+        transform: scale(1.05);
+      }
+
+      .sound-toggle.active {
+        background: rgba(0, 184, 148, 0.4);
+      }
+
+      .sound-toggle i {
+        font-size: 1.2rem;
+        color: #4ecdc4;
+      }
+
+      .sound-toggle span {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      /* HISTORY PANEL */
       .history-panel {
         background: rgba(20, 20, 40, 0.85);
         border-radius: 15px;
@@ -145,8 +267,7 @@
       }
 
       .history-row {
-        padding: 5px 0;
-        margin-bottom: 10px;
+        padding: 8px 0;
         border-bottom: 1px solid rgba(45, 64, 89, 0.3);
         transition: all 0.3s ease;
         cursor: pointer;
@@ -174,13 +295,11 @@
         color: #4ecdc4;
         margin-bottom: 5px;
         font-weight: bold;
-        display: none;
       }
 
       .numbers-row {
         display: flex;
-        justify-content: space-between;
-        /* gap: 3.3px; */
+        gap: 3.3px;
       }
 
       .number-cell {
@@ -214,7 +333,7 @@
       }
 
       .player-history-item {
-        padding: 10px;
+        padding: 5px;
         margin-bottom: 8px;
         border-radius: 8px;
         background: rgba(40, 40, 60, 0.6);
@@ -424,11 +543,9 @@
       }
 
       .bet-buttons {
-        width: 100%;
         display: flex;
         justify-content: center;
-        align-items: center;
-        gap: 10vw;
+        gap: 25px;
       }
 
       .bet-btn {
@@ -498,6 +615,7 @@
         color: #ff6b6b;
       }
 
+      /* NEW BETTING MODAL STYLES */
       .betting-modal {
         position: fixed;
         bottom: -1000%;
@@ -508,13 +626,13 @@
         background: rgba(15, 15, 35, 0.98);
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
-        padding: 5px 10px 2rem;
+        padding: 20px 20px 40px;
         box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.7);
         transition: bottom 0.4s ease;
         z-index: 1000;
         border: 2px solid #2d4059;
         backdrop-filter: blur(10px);
-        max-height: 70vh;
+        max-height: 80vh;
         overflow-y: auto;
       }
 
@@ -526,8 +644,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-bottom: 12px;
+        padding-bottom: 10px;
+        margin-bottom: 1rem;
         border-bottom: 2px solid #2d4059;
+        position: relative;
       }
 
       .modal-title {
@@ -550,9 +670,8 @@
         transform: rotate(90deg);
       }
 
-      .amount-section,
-      .quantity-section {
-        margin: 12px 0;
+      .modal-section {
+        margin-bottom: 16px;
       }
 
       .section-title {
@@ -564,160 +683,82 @@
         gap: 8px;
       }
 
-      .amount-grid {
+      .btn-row {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 8px;
-        margin-bottom: 10px;
+        justify-content: center;
       }
 
-      .amount-btn {
-        padding: 10px 6px;
+      .base-btn,
+      .quick-btn,
+      .mult-btn {
+        flex: 1;
+        min-width: 60px;
+        padding: 10px 5px;
+        border-radius: 8px;
         background: rgba(40, 40, 60, 0.9);
+        color: #f0f0f0;
         border: 2px solid #2d4059;
-        border-radius: 10px;
-        color: gray;
         font-weight: bold;
+        font-size: 0.9rem;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
+        text-align: center;
       }
 
-      .amount-btn:hover {
-        background: rgba(60, 60, 100, 0.9);
-        transform: translateY(-3px);
-      }
-
-      .amount-btn.active {
+      .base-btn.active {
         background: rgba(0, 184, 148, 0.4);
         border-color: #00b894;
         color: #00b894;
         box-shadow: 0 0 10px rgba(0, 184, 148, 0.4);
       }
 
-      .adjust-buttons {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 8px;
-        margin-bottom: 10px;
-      }
-
-      .adjust-btn {
-        padding: 10px 6px;
-        background: rgba(40, 40, 60, 0.9);
-        border: 2px solid #2d4059;
-        border-radius: 10px;
-        color: #f0f0f0;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .adjust-btn:hover {
-        background: rgba(60, 60, 100, 0.9);
-        transform: translateY(-3px);
-      }
-
-      .adjust-btn.positive {
-        background: rgba(0, 184, 148, 0.2);
-        color: #00b894;
-      }
-
-      .adjust-btn.negative {
-        background: rgba(255, 107, 107, 0.2);
-        color: #ff6b6b;
-      }
-
-      .quantity-controls {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .quantity-btn {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: rgba(40, 40, 60, 0.9);
-        border: 2px solid #2d4059;
-        color: #f0f0f0;
-        font-size: 1.3rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        user-select: none;
-      }
-
-      .quantity-btn:hover {
-        background: rgba(60, 60, 100, 0.9);
-      }
-
-      .quantity-input {
-        width: 50%;
-        padding: 10px;
-        text-align: center;
-        background: rgba(40, 40, 60, 0.9);
-        border: 2px solid #2d4059;
-        border-radius: 10px;
-        color: #f0f0f0;
-        font-weight: bold;
-        appearance: textfield;
-        -moz-appearance: textfield;
-      }
-
-      .quantity-input::-webkit-outer-spin-button,
-      .quantity-input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-
-      .multiplier-section {
-        margin: 12px 0;
-      }
-
-      .multiplier-grid {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 8px;
-      }
-
-      .multiplier-btn {
-        color: #bbbbbb;
-        padding: 3px;
-        background: rgba(40, 40, 60, 0.9);
-        border: 2px solid #2d4059;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .multiplier-btn:hover {
-        background: rgba(60, 60, 100, 0.9);
-        transform: translateY(-3px);
-      }
-
-      .multiplier-btn.active {
+      .mult-btn.active {
         background: rgba(155, 89, 182, 0.4);
         border-color: #9b59b6;
         color: #9b59b6;
         box-shadow: 0 0 10px rgba(155, 89, 182, 0.4);
       }
 
+      .quick-btn.plus {
+        background: rgba(0, 184, 148, 0.2);
+        color: #00b894;
+      }
+
+      .quick-btn.minus {
+        background: rgba(255, 107, 107, 0.2);
+        color: #ff6b6b;
+      }
+
+      .exact-input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 2px solid #2d4059;
+        background: rgba(40, 40, 60, 0.9);
+        color: #f0f0f0;
+        font-size: 1rem;
+        text-align: center;
+        -moz-appearance: textfield;
+        /* margin-top: 10px; */
+      }
+      .exact-input::-webkit-outer-spin-button,
+      .exact-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
       .bet-summary {
         background: rgba(40, 40, 60, 0.9);
         border-radius: 10px;
-        padding: 10px;
-        margin: 12px 0;
-        border: 2px solid #2d4059;
+        background: transparent;
+        border: 0;
       }
 
       .total-amount {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
         font-weight: bold;
         color: #f39c12;
-        text-align: center;
         text-shadow: 0 0 6px rgba(243, 156, 18, 0.3);
       }
 
@@ -781,199 +822,12 @@
         transform: translateX(-50%) translateY(1vh);
       }
 
-      .detail-tooltip {
-        position: absolute;
-        background: rgba(10, 15, 30, 0.95);
-        border: 1px solid #2d4059;
-        border-radius: 8px;
-        padding: 15px;
-        width: 280px;
-        z-index: 1000;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-        backdrop-filter: blur(5px);
-      }
-
-      .detail-tooltip.show {
-        opacity: 1;
-        pointer-events: all;
-      }
-
-      .detail-tooltip {
-        max-width: 90vw;
-        max-height: 80vh;
-        overflow: auto;
-        box-sizing: border-box;
-      }
-
-      .tooltip-header {
-        font-size: 1.1rem;
-        color: #4ecdc4;
-        margin-bottom: 10px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #2d4059;
-      }
-
-      .tooltip-row {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 8px;
-        font-size: 0.9rem;
-      }
-
-      .tooltip-label {
-        color: #8d99ae;
-      }
-
-      .tooltip-value {
-        font-weight: bold;
-      }
-
-      .tooltip-value.positive {
-        color: #00b894;
-      }
-
-      .tooltip-value.negative {
-        color: #ff6b6b;
-      }
-
-      .rules-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(10, 10, 20, 0.95);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 3000;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.4s ease;
-        padding: 20px;
-      }
-
-      .rules-modal.show {
-        opacity: 1;
-        pointer-events: all;
-      }
-
-      .rules-content {
-        background: rgba(20, 20, 40, 0.95);
-        border-radius: 15px;
-        padding: 20px;
-        max-width: 800px;
-        width: 90%;
-        max-height: 50vh;
-        overflow-y: auto;
-        position: relative;
-      }
-
-      .close-rules {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        background: none;
-        border: none;
-        color: #ff6b6b;
-        font-size: 1.8rem;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-      }
-
-      .close-rules:hover {
-        transform: rotate(90deg);
-      }
-
-      .rules-title {
-        font-size: 2rem;
-        margin-bottom: 20px;
-        color: #4ecdc4;
-        text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
-      }
-
-      .rules-section {
-        margin-bottom: 25px;
-      }
-
-      .section-header {
-        font-size: 1.4rem;
-        color: #00b894;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .rules-list {
-        padding-left: 30px;
-      }
-
-      .rules-list li {
-        margin-bottom: 12px;
-        line-height: 1.6;
-      }
-
-      .highlight {
-        color: #f39c12;
-        font-weight: bold;
-      }
-
-      .negative {
-        color: #ff6b6b;
-      }
-
-      .positive {
-        color: #00b894;
-      }
-
-      .sound-toggle-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-        padding: 10px;
-      }
-
-      .sound-toggle {
-        background: rgba(40, 40, 60, 0.9);
-        border: 2px solid #4ecdc4;
-        border-radius: 50px;
-        padding: 10px 15px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .sound-toggle:hover {
-        background: rgba(60, 60, 100, 0.9);
-        transform: scale(1.05);
-      }
-
-      .sound-toggle.active {
-        background: rgba(0, 184, 148, 0.4);
-      }
-
-      .sound-toggle i {
-        font-size: 1.2rem;
-        color: #4ecdc4;
-      }
-
-      .sound-toggle span {
-        font-size: 0.9rem;
-        font-weight: 600;
-      }
-
       .history-carousel {
         display: none;
         margin-top: 20px;
         position: relative;
         width: 100%;
-        max-width: 80vw;
+        max-width: 330px;
         margin: 2rem auto 0;
       }
 
@@ -1022,45 +876,36 @@
 
       .history-end {
         text-align: center;
-        padding: 3rem 1rem;
+        padding: 10px;
         font-size: 0.8rem;
         color: #8d99ae;
+        margin: 4rem 0 10px;
+        font-weight: 800;
+        background: linear-gradient(45deg, #ff6b6b, #00b894, #00c8ff);
+        background-clip: border-box;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
+        letter-spacing: 2px;
       }
 
-      .scroll-top-btn {
+      .version-info {
         position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: rgba(40, 40, 60, 0.9);
-        border: 2px solid #4ecdc4;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: #4ecdc4;
-        font-size: 1.5rem;
+        bottom: 10px;
+        right: 10px;
+        font-size: 0.7rem;
+        color: #8d99ae;
         z-index: 100;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-      }
-
-      .scroll-top-btn.visible {
-        opacity: 1;
       }
 
       @media (max-width: 1200px) {
         .game-container {
           grid-template-columns: 1fr;
         }
-
         .history-panel {
           display: none;
         }
-
         .timer-display {
           font-size: 2rem;
           padding: 15px 40px;
@@ -1075,30 +920,8 @@
           font-size: 2.5rem;
           padding: 12px 35px;
         }
-
-        .adjust-buttons {
-          grid-template-columns: repeat(3, 1fr);
-        }
-
-        /* .bet-buttons {
-          gap: 15px;
-        } */
-
         .history-panel {
           display: none;
-        }
-
-        .rules-title {
-          font-size: 1.8rem;
-          margin-bottom: 15px;
-        }
-
-        .section-header {
-          font-size: 1.2rem;
-        }
-
-        .rules-list li {
-          font-size: 0.9rem;
         }
       }
 
@@ -1108,78 +931,20 @@
           height: 85px;
           font-size: 1.6rem;
         }
-
         .timer-display {
           font-size: 2rem;
           padding: 10px 25px;
-        }
-
-        .multiplier-grid {
-          grid-template-columns: repeat(3, 1fr);
-        }
-
-        .rules-content {
-          padding: 15px;
-        }
-
-        .timer-controls {
-          flex-wrap: wrap;
-        }
-
-        .rules-title {
-          font-size: 1.5rem;
-        }
-
-        .section-header {
-          font-size: 1.1rem;
-        }
-
-        .rules-list {
-          padding-left: 20px;
         }
       }
     </style>
   </head>
   <body>
     <div class="toast" id="toast">Bet placed successfully!</div>
-    <div class="detail-tooltip" id="detail-tooltip">
-      <div class="tooltip-header">Bet Details</div>
-      <div class="tooltip-row">
-        <div class="tooltip-label">Round:</div>
-        <div class="tooltip-value" id="tooltip-round">1</div>
-      </div>
-      <div class="tooltip-row">
-        <div class="tooltip-label">Bet Type:</div>
-        <div class="tooltip-value" id="tooltip-type">BIG</div>
-      </div>
-      <div class="tooltip-row">
-        <div class="tooltip-label">Bet Amount:</div>
-        <div class="tooltip-value" id="tooltip-amount">₹100.00</div>
-      </div>
-      <div class="tooltip-row">
-        <div class="tooltip-label">Outcome:</div>
-        <div class="tooltip-value" id="tooltip-outcome">Win</div>
-      </div>
-      <div class="tooltip-row">
-        <div class="tooltip-label">Payout:</div>
-        <div class="tooltip-value positive" id="tooltip-payout">₹196.00</div>
-      </div>
-      <div class="tooltip-row">
-        <div class="tooltip-label">Fee Deducted:</div>
-        <div class="tooltip-value negative" id="tooltip-fee">₹4.00</div>
-      </div>
-      <div class="tooltip-row">
-        <div class="tooltip-label">Net Profit:</div>
-        <div class="tooltip-value positive" id="tooltip-profit">₹96.00</div>
-      </div>
-    </div>
 
-    <button class="scroll-top-btn" id="scroll-top-btn">
-      <i class="fas fa-arrow-up"></i>
-    </button>
+    <div class="version-info">WinGO v21.1</div>
 
-    <div class="game-header" id="game-header">
-      <h1 class="game-title" id="logo-title">WinGO</h1>
+    <div class="game-header">
+      <h1 class="game-title">WinGO</h1>
       <button class="info-btn" id="info-btn">
         <i class="fas fa-info"></i>
       </button>
@@ -1231,9 +996,9 @@
 
         <!-- Dealer Earnings -->
         <div class="dealer-info">
-          <div class="dealer-label">Dealer (2% Fee + Losses)</div>
+          <div class="dealer-label">Dealer Balance (2% Fee + Losses)</div>
           <div class="dealer-amount" id="dealer-amount">₹0.00</div>
-        </div>clearInterval
+        </div>
       </div>
 
       <!-- Right Panel - Player History -->
@@ -1265,59 +1030,81 @@
           </div>
         </div>
       </div>
-      <div class="history-end">End of history</div>
     </div>
 
-    <!-- Betting Modal -->
+    <div class="history-end">End of history</div>
+
+    <!-- BETTING MODAL -->
     <div class="betting-modal" id="betting-modal">
       <div class="modal-header">
-        <div class="modal-title" id="modal-bet-type">Select Big</div>
+        <!-- <div class="modal-title" id="modal-bet-type">Big</div>
+        <button class="close-modal" id="close-modal"><i class="fas fa-times"></i></button> -->
+        <div style="display: flex; align-items: center; gap: 15px">
+          <div class="modal-title" id="modal-bet-type">Big</div>
+          <div class="bet-summary">
+            <div class="total-amount">₹<span id="total-bet">Enter Amount</span></div>
+          </div>
+        </div>
         <button class="close-modal" id="close-modal"><i class="fas fa-times"></i></button>
       </div>
 
-      <div class="amount-section">
+      <!-- Base Amounts -->
+      <div class="modal-section">
         <div class="section-title"><i class="fas fa-rupee-sign"></i> Base Amount</div>
-        <div class="amount-grid">
-          <button class="amount-btn" data-amount="1">₹1</button>
-          <button class="amount-btn" data-amount="10">₹10</button>
-          <button class="amount-btn" data-amount="100">₹100</button>
-          <button class="amount-btn" data-amount="1000">₹1000</button>
-        </div>
-        <div class="adjust-buttons">
-          <button class="adjust-btn negative" id="minus-10" data-adjust="-10">-₹10</button>
-          <button class="adjust-btn negative" id="minus-5" data-adjust="-5">-₹5</button>
-          <button class="adjust-btn negative" id="minus-2" data-adjust="-2">-₹2</button>
-          <button class="adjust-btn positive" id="plus-2" data-adjust="2">+₹2</button>
-          <button class="adjust-btn positive" id="plus-5" data-adjust="5">+₹5</button>
-          <button class="adjust-btn positive" id="plus-10" data-adjust="10">+₹10</button>
+        <div class="btn-row">
+          <button class="base-btn active" data-base="1">₹1</button>
+          <button class="base-btn" data-base="10">₹10</button>
+          <button class="base-btn" data-base="100">₹100</button>
+          <button class="base-btn" data-base="1000">₹1000</button>
         </div>
       </div>
 
-      <div class="multiplier-section">
+      <!-- Quick Adjust -->
+      <div class="modal-section">
+        <div class="section-title"><i class="fas fa-adjust"></i> Quick Adjust</div>
+        <div class="btn-row">
+          <button class="quick-btn minus" data-add="-1">-1</button>
+          <button class="quick-btn minus" data-add="-2">-2</button>
+          <button class="quick-btn minus" data-add="-5">-5</button>
+          <button class="quick-btn minus" data-add="-10">-10</button>
+          <button class="quick-btn plus" data-add="1">+1</button>
+          <button class="quick-btn plus" data-add="2">+2</button>
+          <button class="quick-btn plus" data-add="5">+5</button>
+          <button class="quick-btn plus" data-add="10">+10</button>
+        </div>
+      </div>
+
+      <!-- Multipliers -->
+      <div class="modal-section">
         <div class="section-title"><i class="fas fa-bolt"></i> Multiplier</div>
-        <div class="multiplier-grid">
-          <button class="multiplier-btn" data-multiplier="1">×1</button>
-          <button class="multiplier-btn" data-multiplier="5">×5</button>
-          <button class="multiplier-btn" data-multiplier="10">×10</button>
-          <button class="multiplier-btn" data-multiplier="20">×20</button>
-          <button class="multiplier-btn" data-multiplier="50">×50</button>
-          <button class="multiplier-btn" data-multiplier="100">×100</button>
+        <div class="btn-row">
+          <button class="mult-btn active" data-m="1">×1</button>
+          <button class="mult-btn" data-m="2">×2</button>
+          <button class="mult-btn" data-m="3">×3</button>
+          <button class="mult-btn" data-m="4">×4</button>
+          <button class="mult-btn" data-m="5">×5</button>
+          <button class="mult-btn" data-m="10">×10</button>
+          <button class="mult-btn" data-m="20">×20</button>
+          <button class="mult-btn" data-m="50">×50</button>
+          <!-- <button class="mult-btn" data-m="100">×100</button>
+          <button class="mult-btn" data-m="500">×500</button>
+          <button class="mult-btn" data-m="1000">×1000</button>
+          <button class="mult-btn" data-m="1">reset</button> -->
         </div>
       </div>
 
-      <div class="quantity-section">
-        <div class="section-title"><i class="fas fa-calculator"></i> Quantity</div>
-        <div class="quantity-controls">
-          <button class="quantity-btn" id="dec-quantity">-</button>
-          <input type="number" class="quantity-input" id="quantity" min="1" value="1" />
-          <button class="quantity-btn" id="inc-quantity">+</button>
-        </div>
+      <!-- Exact Amount -->
+      <div class="modal-section">
+        <!-- <div class="section-title"><i class="fas fa-keyboard"></i>enter amount</div> -->
+        <input id="exact-input" class="exact-input" type="number" placeholder="Enter Amount" />
       </div>
 
-      <div class="bet-summary">
-        <div class="total-amount">₹<span id="total-bet">1.00</span></div>
-      </div>
+      <!-- Bet Summary -->
+      <!-- <div class="bet-summary">
+        <div class="total-amount">₹<span id="total-bet">1</span></div>
+      </div> -->
 
+      <!-- Actions -->
       <div class="modal-buttons">
         <button class="modal-btn cancel-btn" id="cancel-bet"><i class="fas fa-times"></i> Cancel</button>
         <button class="modal-btn confirm-btn" id="confirm-bet"><i class="fas fa-check"></i> Place Bet</button>
@@ -1352,7 +1139,7 @@
         </div>
 
         <div class="rules-section">
-          <h3 class="section-header"><i class="fas fa-trophy"></i> Winning & Payouts</h3>
+          <h3 class="section-header"><i class="fas fa-trophy"></i> Winning &amp; Payouts</h3>
           <ul class="rules-list">
             <li>If you bet on BIG and the number is 5-9, you win!</li>
             <li>If you bet on SMALL and the number is 0-4, you win!</li>
@@ -1373,21 +1160,16 @@
               </ul>
             </li>
             <li>The dealer pays out <span class="highlight">1.96×</span> the bet amount on winning bets</li>
-            <!-- <li>Dealer balance can go <span class="negative">negative</span> if payouts exceed collected fees and losing bets</li> -->
             <li>This creates a realistic casino experience where the dealer can lose money in a round</li>
           </ul>
         </div>
 
         <!-- Sound Toggle Inside Rules Modal -->
         <div class="sound-toggle-container">
-          <div class="sound-toggle" id="sound-toggle">
-            <i class="fas fa-volume-up"></i>
-            <span>Sound ON</span>
-          </div>
+          <div class="sound-toggle" id="sound-toggle"><i class="fas fa-volume-mute"></i><span>Sound OFF</span></div>
         </div>
       </div>
     </div>
-
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         // Game configuration
@@ -1429,11 +1211,10 @@
           closeModal: document.getElementById("close-modal"),
           modalBetType: document.getElementById("modal-bet-type"),
           totalBet: document.getElementById("total-bet"),
-          amountBtns: document.querySelectorAll(".amount-btn"),
-          multiplierBtns: document.querySelectorAll(".multiplier-btn"),
-          decQuantity: document.getElementById("dec-quantity"),
-          incQuantity: document.getElementById("inc-quantity"),
-          quantityInput: document.getElementById("quantity"),
+          baseBtns: document.querySelectorAll(".base-btn"),
+          multBtns: document.querySelectorAll(".mult-btn"),
+          quickBtns: document.querySelectorAll(".quick-btn"),
+          exactInput: document.getElementById("exact-input"),
           cancelBet: document.getElementById("cancel-bet"),
           confirmBet: document.getElementById("confirm-bet"),
           gameHistory: document.getElementById("game-history"),
@@ -1444,32 +1225,20 @@
           infoBtn: document.getElementById("info-btn"),
           rulesModal: document.getElementById("rules-modal"),
           closeRules: document.getElementById("close-rules"),
-          timerBtns: document.querySelectorAll(".timer-btn"),
-          adjustBtns: document.querySelectorAll(".adjust-btn"),
-          detailTooltip: document.getElementById("detail-tooltip"),
-          tooltipRound: document.getElementById("tooltip-round"),
-          tooltipType: document.getElementById("tooltip-type"),
-          tooltipAmount: document.getElementById("tooltip-amount"),
-          tooltipOutcome: document.getElementById("tooltip-outcome"),
-          tooltipPayout: document.getElementById("tooltip-payout"),
-          tooltipFee: document.getElementById("tooltip-fee"),
-          tooltipProfit: document.getElementById("tooltip-profit"),
           soundToggle: document.getElementById("sound-toggle"),
-          carouselInner: document.getElementById("carousel-inner"),
-          carouselDots: document.querySelectorAll(".carousel-dot"),
-          logoTitle: document.getElementById("logo-title"),
-          gameHeader: document.getElementById("game-header"),
-          scrollTopBtn: document.getElementById("scroll-top-btn")
+          timerBtns: document.querySelectorAll(".timer-btn")
         };
 
         // Timer interval variable
         let timerInterval = null;
-        // Tooltip timeout
-        let tooltipTimeout;
-        // Long press interval
-        let longPressInterval;
-        // Press start time
-        let pressStartTime;
+
+        // Long press variables
+        const LONG_PRESS_DELAY = 350;
+        const REPEAT_INTERVAL = 120;
+        let holdTimer,
+          repeatTimer,
+          isLongPress = false;
+        let override = false;
 
         // Initialize game
         function initGame() {
@@ -1479,13 +1248,7 @@
           setupEventListeners();
           activateDefaultButtons();
           updateSoundToggleUI();
-          setupCarousel();
-
-          // Setup scroll to top button
-          setupScrollToTop();
-
-          // Setup header scroll behavior
-          setupHeaderScroll();
+          updateGameHistory();
         }
 
         // Generate initial game history
@@ -1510,6 +1273,21 @@
           updateGameHistory();
           updatePlayerHistory();
         }
+
+        // Rules modal
+        elements.infoBtn.addEventListener("click", () => {
+          elements.rulesModal.classList.add("show");
+        });
+
+        elements.closeRules.addEventListener("click", () => {
+          elements.rulesModal.classList.remove("show");
+        });
+
+        elements.rulesModal.addEventListener("click", (e) => {
+          if (e.target === elements.rulesModal) {
+            elements.rulesModal.classList.remove("show");
+          }
+        });
 
         // Update wallet display
         function updateWallet() {
@@ -1564,9 +1342,6 @@
             historyHTML += `</div></div>`;
           }
 
-          // Add end of history message
-          // historyHTML += `<div class="history-end">End of history</div>`;
-
           elements.gameHistory.innerHTML = historyHTML;
           elements.mobileGameHistory.innerHTML = historyHTML;
         }
@@ -1604,9 +1379,6 @@
                     </div>`;
           }
 
-          // Add end of history message
-          historyHTML += `<div class="history-end">End of history</div>`;
-
           elements.playerHistory.innerHTML = historyHTML;
           elements.mobilePlayerHistory.innerHTML = historyHTML;
         }
@@ -1629,10 +1401,11 @@
         // End the current round
         function endRound() {
           clearInterval(timerInterval);
-          gameState.gameActive = false;
 
+          // Play end sound
+          gameState.gameActive = false;
           if (gameState.soundEnabled) {
-            playSound(440, 200); // Play end sound
+            playSound(440, 200);
           }
 
           // Generate random number (0-9)
@@ -1681,7 +1454,7 @@
           gameState.multiplier = 1;
           gameState.quantity = 1;
           gameState.extraAdjustment = 0;
-          elements.quantityInput.value = 1;
+          elements.exactInput.value = "Enter Amount";
           updateBetSummary();
         }
 
@@ -1701,20 +1474,19 @@
 
         // Activate default buttons
         function activateDefaultButtons() {
-          elements.amountBtns.forEach((btn) => btn.classList.remove("active"));
-          elements.multiplierBtns.forEach((btn) => btn.classList.remove("active"));
-          elements.amountBtns[0].classList.add("active");
-          elements.multiplierBtns[0].classList.add("active");
+          elements.baseBtns.forEach((btn) => btn.classList.remove("active"));
+          elements.multBtns.forEach((btn) => btn.classList.remove("active"));
+          elements.baseBtns[0].classList.add("active");
+          elements.multBtns[0].classList.add("active");
         }
 
         // Update bet summary display
         function updateBetSummary() {
           const baseAmount = gameState.baseAmount;
           const multiplier = gameState.multiplier;
-          const quantity = gameState.quantity;
           const extraAdjustment = gameState.extraAdjustment;
 
-          const totalBet = baseAmount * multiplier * quantity + extraAdjustment;
+          const totalBet = baseAmount * multiplier + extraAdjustment;
           elements.totalBet.textContent = totalBet.toLocaleString("en-IN", {
             maximumFractionDigits: 2,
             minimumFractionDigits: 2
@@ -1725,10 +1497,9 @@
         function placeBet() {
           const baseAmount = gameState.baseAmount;
           const multiplier = gameState.multiplier;
-          const quantity = gameState.quantity;
           const extraAdjustment = gameState.extraAdjustment;
 
-          const totalBet = baseAmount * multiplier * quantity + extraAdjustment;
+          const totalBet = baseAmount * multiplier + extraAdjustment;
 
           if (totalBet < 1) {
             showToast("Minimum bet is ₹1");
@@ -1830,93 +1601,47 @@
           }
         }
 
-        // Setup carousel navigation
-        function setupCarousel() {
-          elements.carouselDots.forEach((dot) => {
-            dot.addEventListener("click", () => {
-              const index = parseInt(dot.dataset.index);
-              scrollCarousel(index);
-            });
-          });
-        }
-
-        // Scroll carousel to specific slide
-        function scrollCarousel(index) {
-          const scrollPosition = index * elements.carouselInner.offsetWidth;
-          elements.carouselInner.scrollTo({
-            left: scrollPosition,
-            behavior: "smooth"
-          });
-
-          // Update active dot
-          elements.carouselDots.forEach((dot, i) => {
-            dot.classList.toggle("active", i === index);
-          });
-        }
-
-        // Setup scroll to top button
-        function setupScrollToTop() {
-          // Show/hide button based on scroll position
-          window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
-              elements.scrollTopBtn.classList.add("visible");
-            } else {
-              elements.scrollTopBtn.classList.remove("visible");
-            }
-          });
-
-          // Scroll to top when button clicked
-          elements.scrollTopBtn.addEventListener("click", () => {
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth"
-            });
-          });
-        }
-
-        // Setup header scroll behavior
-        function setupHeaderScroll() {
-          let lastScrollTop = 0;
-
-          window.addEventListener("scroll", () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            if (scrollTop > lastScrollTop && scrollTop > 50) {
-              // Scroll down
-              elements.gameHeader.classList.add("scrolled");
-            } else {
-              // Scroll up
-              elements.gameHeader.classList.remove("scrolled");
-            }
-
-            lastScrollTop = scrollTop;
-          });
-        }
-
         // Long press functionality
-        function startLongPress(btn, action) {
-          pressStartTime = Date.now();
+        function addLongPress(el, onClick, onHold) {
+          el.addEventListener("click", () => {
+            if (isLongPress) {
+              isLongPress = false;
+              return;
+            }
+            onClick();
+          });
 
-          longPressInterval = setInterval(() => {
-            action();
-            updateBetSummary();
-          }, 100);
+          el.addEventListener("pointerdown", () => {
+            isLongPress = false;
+            holdTimer = setTimeout(() => {
+              isLongPress = true;
+              onHold();
+              repeatTimer = setInterval(onHold, REPEAT_INTERVAL);
+            }, LONG_PRESS_DELAY);
+          });
+
+          ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => {
+            el.addEventListener(ev, () => {
+              clearTimeout(holdTimer);
+              clearInterval(repeatTimer);
+            });
+          });
         }
 
-        function endLongPress() {
-          clearInterval(longPressInterval);
+        function clearOverride() {
+          if (override) {
+            override = false;
+            elements.exactInput.value = "";
+          }
+        }
+
+        function setTotal(v) {
+          gameState.extraAdjustment = v;
+          updateBetSummary();
         }
 
         // Set up event listeners
         function setupEventListeners() {
-          // Scroll to top when logo is clicked
-          elements.logoTitle.addEventListener("click", () => {
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth"
-            });
-          });
-
           // Bet buttons
           elements.bigBtn.addEventListener("click", () => openBetModal("big"));
           elements.smallBtn.addEventListener("click", () => openBetModal("small"));
@@ -1939,104 +1664,77 @@
             }
           });
 
-          // Amount buttons
-          elements.amountBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
-              elements.amountBtns.forEach((b) => b.classList.remove("active"));
-              btn.classList.add("active");
-              gameState.baseAmount = parseInt(btn.dataset.amount);
-              gameState.extraAdjustment = 0;
-              updateBetSummary();
-            });
-
-            // Long press for amount buttons
-            btn.addEventListener("mousedown", () => {
-              startLongPress(btn, () => {
-                gameState.baseAmount = parseInt(btn.dataset.amount);
-                gameState.extraAdjustment = 0;
-              });
-            });
-
-            btn.addEventListener("mouseup", endLongPress);
-            btn.addEventListener("mouseleave", endLongPress);
-
-            btn.addEventListener("touchstart", () => {
-              startLongPress(btn, () => {
-                gameState.baseAmount = parseInt(btn.dataset.amount);
-                gameState.extraAdjustment = 0;
-              });
-            });
-
-            btn.addEventListener("touchend", endLongPress);
+          // Base buttons with long press
+          elements.baseBtns.forEach((btn) => {
+            const val = Number(btn.dataset.base);
+            addLongPress(
+              btn,
+              () => {
+                clearOverride();
+                if (btn.classList.contains("active")) {
+                  setTotal(gameState.extraAdjustment + val);
+                } else {
+                  elements.baseBtns.forEach((b) => b.classList.remove("active"));
+                  btn.classList.add("active");
+                  gameState.baseAmount = val;
+                  setTotal(gameState.extraAdjustment);
+                }
+              },
+              () => {
+                clearOverride();
+                setTotal(gameState.extraAdjustment + val);
+              }
+            );
           });
 
-          // Adjust buttons - fixed calculation
-          elements.adjustBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
-              const adjustment = parseFloat(btn.dataset.adjust);
-              gameState.extraAdjustment += adjustment;
-              updateBetSummary();
-            });
-
-            // Long press for adjust buttons
-            btn.addEventListener("mousedown", () => {
-              const adjustment = parseFloat(btn.dataset.adjust);
-              startLongPress(btn, () => {
-                gameState.extraAdjustment += adjustment;
-              });
-            });
-
-            btn.addEventListener("mouseup", endLongPress);
-            btn.addEventListener("mouseleave", endLongPress);
-
-            btn.addEventListener("touchstart", () => {
-              const adjustment = parseFloat(btn.dataset.adjust);
-              startLongPress(btn, () => {
-                gameState.extraAdjustment += adjustment;
-              });
-            });
-
-            btn.addEventListener("touchend", endLongPress);
+          // Multiplier buttons with long press
+          elements.multBtns.forEach((btn) => {
+            const val = Number(btn.dataset.m);
+            addLongPress(
+              btn,
+              () => {
+                clearOverride();
+                if (btn.classList.contains("active")) {
+                  setTotal(gameState.extraAdjustment * val);
+                } else {
+                  elements.multBtns.forEach((b) => b.classList.remove("active"));
+                  btn.classList.add("active");
+                  gameState.multiplier = val;
+                  setTotal(gameState.extraAdjustment);
+                }
+              },
+              () => {
+                clearOverride();
+                setTotal(gameState.extraAdjustment * val);
+              }
+            );
           });
 
-          // Multiplier buttons
-          elements.multiplierBtns.forEach((btn) => {
-            btn.addEventListener("click", () => {
-              elements.multiplierBtns.forEach((b) => b.classList.remove("active"));
-              btn.classList.add("active");
-              gameState.multiplier = parseInt(btn.dataset.multiplier);
-              gameState.extraAdjustment = 0;
-              updateBetSummary();
-            });
-
-            // Long press for multiplier buttons
-            btn.addEventListener("mousedown", () => {
-              startLongPress(btn, () => {
-                gameState.multiplier = parseInt(btn.dataset.multiplier);
-                gameState.extraAdjustment = 0;
-              });
-            });
-
-            btn.addEventListener("mouseup", endLongPress);
-            btn.addEventListener("mouseleave", endLongPress);
-
-            btn.addEventListener("touchstart", () => {
-              startLongPress(btn, () => {
-                gameState.multiplier = parseInt(btn.dataset.multiplier);
-                gameState.extraAdjustment = 0;
-              });
-            });
-
-            btn.addEventListener("touchend", endLongPress);
+          // Quick buttons with long press
+          elements.quickBtns.forEach((btn) => {
+            const val = Number(btn.dataset.add);
+            addLongPress(
+              btn,
+              () => {
+                clearOverride();
+                setTotal(gameState.extraAdjustment + val);
+              },
+              () => {
+                clearOverride();
+                setTotal(gameState.extraAdjustment + val);
+              }
+            );
           });
 
-          // Quantity input
-          elements.quantityInput.addEventListener("change", () => {
-            const val = parseInt(elements.quantityInput.value) || 1;
-            gameState.quantity = Math.max(1, val);
-            gameState.extraAdjustment = 0;
-            elements.quantityInput.value = gameState.quantity;
-            updateBetSummary();
+          // Exact amount input
+          elements.exactInput.addEventListener("input", (e) => {
+            const v = Number(e.target.value);
+            if (!isNaN(v) && e.target.value !== "") {
+              override = true;
+              setTotal(v);
+            } else {
+              override = false;
+            }
           });
 
           // Timer buttons
@@ -2055,105 +1753,8 @@
           // Add funds by double-clicking wallet
           elements.walletAmount.addEventListener("dblclick", addFunds);
 
-          // Rules modal
-          elements.infoBtn.addEventListener("click", () => {
-            elements.rulesModal.classList.add("show");
-          });
-
-          elements.closeRules.addEventListener("click", () => {
-            elements.rulesModal.classList.remove("show");
-          });
-
-          elements.rulesModal.addEventListener("click", (e) => {
-            if (e.target === elements.rulesModal) {
-              elements.rulesModal.classList.remove("show");
-            }
-          });
-
-          // Quantity buttons
-          elements.incQuantity.addEventListener("click", () => {
-            gameState.quantity++;
-            gameState.extraAdjustment = 0;
-            elements.quantityInput.value = gameState.quantity;
-            updateBetSummary();
-          });
-
-          elements.decQuantity.addEventListener("click", () => {
-            if (gameState.quantity > 1) {
-              gameState.quantity--;
-              gameState.extraAdjustment = 0;
-              elements.quantityInput.value = gameState.quantity;
-              updateBetSummary();
-            }
-          });
-
-          // History hover events
-          document.addEventListener("mouseover", (e) => {
-            const historyItem = e.target.closest(".history-row, .player-history-item");
-            if (historyItem && historyItem.dataset.round) {
-              showBetDetails(historyItem, e);
-            }
-          });
-
-          document.addEventListener("mouseout", hideBetDetails);
-
           // Sound toggle
           elements.soundToggle.addEventListener("click", toggleSound);
-        }
-
-        // Show bet details tooltip
-        function showBetDetails(item, event) {
-          clearTimeout(tooltipTimeout);
-
-          // Position tooltip to stay within viewport
-          let left = event.clientX + 10;
-          let top = event.clientY - 10;
-
-          // Check if tooltip would go off the right edge
-          const tooltipWidth = 280;
-          if (left + tooltipWidth > window.innerWidth) {
-            left = window.innerWidth - tooltipWidth - 10;
-          }
-
-          // Check if tooltip would go off the bottom edge
-          const tooltipHeight = 250;
-          if (top + tooltipHeight > window.innerHeight) {
-            top = window.innerHeight - tooltipHeight - 10;
-          }
-
-          elements.detailTooltip.style.left = `${left}px`;
-          elements.detailTooltip.style.top = `${top}px`;
-
-          const round = item.dataset.round;
-          const type = item.dataset.type;
-          const amount = parseFloat(item.dataset.amount);
-          const outcome = item.dataset.outcome;
-
-          // Calculate details
-          const payout = outcome === "win" ? Math.floor(amount * config.payoutMultiplier) : 0;
-          const fee = outcome === "win" ? amount * config.feePercentage : 0;
-          const profit = outcome === "win" ? payout - amount : -amount;
-
-          // Update tooltip
-          elements.tooltipRound.textContent = round;
-          elements.tooltipType.textContent = type.toUpperCase();
-          elements.tooltipAmount.textContent = `₹${amount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-          elements.tooltipOutcome.textContent = outcome.charAt(0).toUpperCase() + outcome.slice(1);
-          elements.tooltipOutcome.className = outcome === "win" ? "tooltip-value positive" : outcome === "loss" ? "tooltip-value negative" : "tooltip-value";
-          elements.tooltipPayout.textContent = `₹${payout.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-          elements.tooltipFee.textContent = `₹${fee.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-          elements.tooltipProfit.textContent = `₹${profit.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-          elements.tooltipProfit.className = profit >= 0 ? "tooltip-value positive" : "tooltip-value negative";
-
-          elements.detailTooltip.classList.add("show");
-        }
-
-        // Hide bet details tooltip
-        function hideBetDetails() {
-          clearTimeout(tooltipTimeout);
-          tooltipTimeout = setTimeout(() => {
-            elements.detailTooltip.classList.remove("show");
-          }, 200);
         }
 
         // Start the game
