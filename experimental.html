@@ -940,10 +940,10 @@
 
       .history-end {
         text-align: center;
-        padding: 10px;
+        /* padding: 10px; */
         font-size: 0.8rem;
         color: #8d99ae;
-        margin: 4rem 0 10px;
+        /* margin: 4rem 0 10px; */
         font-weight: 800;
         background: linear-gradient(45deg, #ff6b6b, #00b894, #00c8ff);
         background-clip: border-box;
@@ -955,12 +955,8 @@
       }
 
       .version-info {
-        position: fixed;
-        bottom: 10px;
-        left: 10px;
         font-size: 0.7rem;
         color: #4ecdc4;
-        z-index: 100;
       }
       .scroll-top-btn {
         position: fixed;
@@ -982,7 +978,12 @@
         transition: opacity 0.3s ease;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
       }
-
+      footer {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+        margin-top: 4rem;
+      }
       .scroll-top-btn.visible {
         opacity: 1;
       }
@@ -1027,9 +1028,6 @@
   </head>
   <body>
     <div class="toast" id="toast">Bet placed successfully!</div>
-    <div class="version-info">v21.5</div>
-    <button class="scroll-top-btn" id="scroll-top-btn"><i class="fas fa-arrow-up"></i></button>
-
     <div class="detail-tooltip" id="detail-tooltip">
       <div class="tooltip-header">Bet Details</div>
       <div class="tooltip-row">
@@ -1149,8 +1147,11 @@
         </div>
       </div>
     </div>
-
-    <div class="history-end">End of history</div>
+    <footer>
+      <div class="version-info">v21.5.2</div>
+      <div class="history-end">End of history</div>
+      <button class="scroll-top-btn" id="scroll-top-btn"><i class="fas fa-arrow-up"></i></button>
+    </footer>
 
     <!-- BETTING MODAL -->
     <div class="betting-modal" id="betting-modal">
