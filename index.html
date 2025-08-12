@@ -86,8 +86,66 @@
         background: rgba(60, 60, 100, 0.9);
         color: #00c8ff;
       }
-      /* RULES MODAL STYLES */
+      /* Details Tooltip STYLES */
+      .detail-tooltip {
+        position: absolute;
+        background: rgba(10, 15, 30, 0.95);
+        border: 1px solid #2d4059;
+        border-radius: 8px;
+        padding: 15px;
+        width: 280px;
+        z-index: 1000;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        backdrop-filter: blur(5px);
+      }
 
+      .detail-tooltip.show {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .detail-tooltip {
+        max-width: 90vw;
+        max-height: 80vh;
+        overflow: auto;
+        box-sizing: border-box;
+      }
+
+      .tooltip-header {
+        font-size: 1.1rem;
+        color: #4ecdc4;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #2d4059;
+      }
+
+      .tooltip-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+      }
+
+      .tooltip-label {
+        color: #8d99ae;
+      }
+
+      .tooltip-value {
+        font-weight: bold;
+      }
+
+      .tooltip-value.positive {
+        color: #00b894;
+      }
+
+      .tooltip-value.negative {
+        color: #ff6b6b;
+      }
+
+      /* RULES MODAL STYLES */
       .rules-modal {
         position: fixed;
         top: 0;
@@ -120,11 +178,15 @@
         overflow-y: auto;
         position: relative;
       }
+      .rules-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #4ecdc4;
+      }
 
       .close-rules {
-        position: absolute;
-        top: 10px;
-        right: 20px;
         background: none;
         border: none;
         color: #ff6b6b;
@@ -139,13 +201,13 @@
 
       .rules-title {
         font-size: 2rem;
-        margin-bottom: 20px;
         color: #4ecdc4;
         text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
       }
 
       .rules-section {
         margin-bottom: 25px;
+        text-align: justify;
       }
 
       .section-header {
@@ -291,10 +353,10 @@
       }
 
       .round-label {
-        font-size: 0.9rem;
+        font-size: 0.5rem;
         color: #4ecdc4;
         margin-bottom: 5px;
-        font-weight: bold;
+        font-weight: 600;
       }
 
       .numbers-row {
@@ -634,6 +696,7 @@
         backdrop-filter: blur(10px);
         max-height: 80vh;
         overflow-y: auto;
+        user-select: none;
       }
 
       .modal-open {
@@ -740,6 +803,7 @@
         color: #f0f0f0;
         font-size: 1rem;
         text-align: center;
+        appearance: textfield;
         -moz-appearance: textfield;
         /* margin-top: 10px; */
       }
@@ -893,12 +957,35 @@
       .version-info {
         position: fixed;
         bottom: 10px;
-        right: 10px;
+        left: 10px;
         font-size: 0.7rem;
-        color: #8d99ae;
+        color: #4ecdc4;
         z-index: 100;
       }
+      .scroll-top-btn {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(40, 40, 60, 0.9);
+        border: 2px solid #4ecdc4;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #4ecdc4;
+        font-size: 1.3rem;
+        z-index: 100;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      }
 
+      .scroll-top-btn.visible {
+        opacity: 1;
+      }
       @media (max-width: 1200px) {
         .game-container {
           grid-template-columns: 1fr;
@@ -940,8 +1027,39 @@
   </head>
   <body>
     <div class="toast" id="toast">Bet placed successfully!</div>
-
-    <div class="version-info">WinGO v21.1</div>
+    <div class="version-info">v21.5</div>
+    <button class="scroll-top-btn visible" id="scroll-top-btn"><i class="fas fa-arrow-up"></i></button>
+    <div class="detail-tooltip" id="detail-tooltip" style="left: 366px; top: 601px">
+      <div class="tooltip-header">Bet Details</div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Round:</div>
+        <div class="tooltip-value" id="tooltip-round">11</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Bet Type:</div>
+        <div class="tooltip-value" id="tooltip-type">BIG</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Bet Amount:</div>
+        <div class="tooltip-value" id="tooltip-amount">₹10.00</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Outcome:</div>
+        <div class="tooltip-value negative" id="tooltip-outcome">Loss</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Payout:</div>
+        <div class="tooltip-value positive" id="tooltip-payout">₹0.00</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Fee Deducted:</div>
+        <div class="tooltip-value negative" id="tooltip-fee">₹0.00</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Net Profit:</div>
+        <div class="tooltip-value negative" id="tooltip-profit">₹-10.00</div>
+      </div>
+    </div>
 
     <div class="game-header">
       <h1 class="game-title">WinGO</h1>
@@ -976,7 +1094,7 @@
           <button class="timer-btn active" data-time="30">30s</button>
           <button class="timer-btn" data-time="60">1min</button>
           <button class="timer-btn" data-time="180">3min</button>
-          <button class="timer-btn" data-time="300">5min</button>
+          <!-- <button class="timer-btn" data-time="300">5min</button> -->
         </div>
 
         <div class="timer-section">
@@ -1114,10 +1232,12 @@
     <!-- Rules Modal -->
     <div class="rules-modal" id="rules-modal">
       <div class="rules-content">
-        <button class="close-rules" id="close-rules">
-          <i class="fas fa-times"></i>
-        </button>
-        <h2 class="rules-title">WinGO Game Rules</h2>
+        <div class="rules-header">
+          <h2 class="rules-title">Game Rules</h2>
+          <button class="close-rules" id="close-rules">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
 
         <div class="rules-section">
           <h3 class="section-header"><i class="fas fa-dice"></i> Game Overview</h3>
@@ -1129,12 +1249,12 @@
         </div>
 
         <div class="rules-section">
-          <h3 class="section-header"><i class="fas fa-coins"></i> Betting Rules</h3>
+          <h3 class="section-header"><i class="fas fa-coins"></i> Betting Modal</h3>
           <ul class="rules-list">
-            <li><span class="highlight">Base Amount:</span> Select ₹1, ₹10, ₹100, or ₹1000 as your base bet</li>
+            <li><span class="highlight">Base Amount:</span> Lets you select ₹1, ₹10, ₹100, or ₹1000 as your base amount</li>
+            <li><span class="highlight"> Quick Adjust:</span> Quick Add / Subtract buttons for ease of use</li>
             <li><span class="highlight">Multiplier:</span> Multiply your base amount (×1 to ×100)</li>
-            <li><span class="highlight">Quantity:</span> Place multiple identical bets at once</li>
-            <li>Total Bet = Base Amount × Multiplier × Quantity</li>
+            <li><span class="highlight">Enter Amount:</span> Manually type in desired amount</li>
           </ul>
         </div>
 
@@ -1146,21 +1266,6 @@
             <li>Winning bets pay out at <span class="highlight">1.96×</span> the bet amount</li>
             <li>The dealer takes a <span class="highlight">2% fee</span> on all winning bets</li>
             <li>Example: A ₹100 winning bet pays ₹196 (₹100 × 1.96), with ₹4 fee to dealer</li>
-          </ul>
-        </div>
-
-        <div class="rules-section">
-          <h3 class="section-header"><i class="fas fa-landmark"></i> Dealer System</h3>
-          <ul class="rules-list">
-            <li>
-              The dealer collects:
-              <ul>
-                <li><span class="highlight">2% fee</span> on all winning bets</li>
-                <li><span class="highlight">Entire amount</span> of losing bets</li>
-              </ul>
-            </li>
-            <li>The dealer pays out <span class="highlight">1.96×</span> the bet amount on winning bets</li>
-            <li>This creates a realistic casino experience where the dealer can lose money in a round</li>
           </ul>
         </div>
 
@@ -1202,6 +1307,13 @@
 
         // DOM elements
         const elements = {
+          toast: document.getElementById("toast"),
+          infoBtn: document.getElementById("info-btn"),
+          rulesModal: document.getElementById("rules-modal"),
+          closeRules: document.getElementById("close-rules"),
+          soundToggle: document.getElementById("sound-toggle"),
+          detailTooltip: document.getElementById("detail-tooltip"),
+          timerBtns: document.querySelectorAll(".timer-btn"),
           timer: document.getElementById("timer"),
           walletAmount: document.getElementById("wallet-amount"),
           dealerAmount: document.getElementById("dealer-amount"),
@@ -1221,12 +1333,7 @@
           playerHistory: document.getElementById("player-history"),
           mobileGameHistory: document.getElementById("mobile-game-history"),
           mobilePlayerHistory: document.getElementById("mobile-player-history"),
-          toast: document.getElementById("toast"),
-          infoBtn: document.getElementById("info-btn"),
-          rulesModal: document.getElementById("rules-modal"),
-          closeRules: document.getElementById("close-rules"),
-          soundToggle: document.getElementById("sound-toggle"),
-          timerBtns: document.querySelectorAll(".timer-btn")
+          scrollTopBtn: document.getElementById("scroll-top-btn")
         };
 
         // Timer interval variable
@@ -1524,11 +1631,11 @@
             outcome: "pending",
             round: gameState.round
           });
-
           elements.bettingModal.classList.remove("modal-open");
           resetBettingModal();
           updatePlayerHistory();
           showToast(`Bet placed: ₹${totalBet.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} on ${gameState.currentBetType}`);
+          updateWallet();
         }
 
         // Add funds to wallet
@@ -1753,10 +1860,95 @@
           // Add funds by double-clicking wallet
           elements.walletAmount.addEventListener("dblclick", addFunds);
 
+          // History hover events
+          document.addEventListener("mouseover", (e) => {
+            const historyItem = e.target.closest(".history-row, .player-history-item");
+            if (historyItem && historyItem.dataset.round) {
+              showBetDetails(historyItem, e);
+            }
+          });
+
+          document.addEventListener("mouseout", hideBetDetails);
+
           // Sound toggle
           elements.soundToggle.addEventListener("click", toggleSound);
-        }
 
+          // Show bet details tooltip
+          function showBetDetails(item, event) {
+            clearTimeout(tooltipTimeout);
+
+            // Position tooltip to stay within viewport
+            let left = event.clientX + 10;
+            let top = event.clientY - 10;
+
+            // Check if tooltip would go off the right edge
+            const tooltipWidth = 280;
+            if (left + tooltipWidth > window.innerWidth) {
+              left = window.innerWidth - tooltipWidth - 10;
+            }
+
+            // Check if tooltip would go off the bottom edge
+            const tooltipHeight = 250;
+            if (top + tooltipHeight > window.innerHeight) {
+              top = window.innerHeight - tooltipHeight - 10;
+            }
+
+            elements.detailTooltip.style.left = `${left}px`;
+            elements.detailTooltip.style.top = `${top}px`;
+
+            const round = item.dataset.round;
+            const type = item.dataset.type;
+            const amount = parseFloat(item.dataset.amount);
+            const outcome = item.dataset.outcome;
+
+            // Calculate details
+            const payout = outcome === "win" ? Math.floor(amount * config.payoutMultiplier) : 0;
+            const fee = outcome === "win" ? amount * config.feePercentage : 0;
+            const profit = outcome === "win" ? payout - amount : -amount;
+
+            // Update tooltip
+            elements.tooltipRound.textContent = round;
+            elements.tooltipType.textContent = type.toUpperCase();
+            elements.tooltipAmount.textContent = `₹${amount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            elements.tooltipOutcome.textContent = outcome.charAt(0).toUpperCase() + outcome.slice(1);
+            elements.tooltipOutcome.className = outcome === "win" ? "tooltip-value positive" : outcome === "loss" ? "tooltip-value negative" : "tooltip-value";
+            elements.tooltipPayout.textContent = `₹${payout.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            elements.tooltipFee.textContent = `₹${fee.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            elements.tooltipProfit.textContent = `₹${profit.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            elements.tooltipProfit.className = profit >= 0 ? "tooltip-value positive" : "tooltip-value negative";
+
+            elements.detailTooltip.classList.add("show");
+          }
+
+          // Hide bet details tooltip
+          function hideBetDetails() {
+            clearTimeout(tooltipTimeout);
+            tooltipTimeout = setTimeout(() => {
+              elements.detailTooltip.classList.remove("show");
+            }, 200);
+          }
+
+          // Setup scroll to top button
+          function setupScrollToTop() {
+            // Show/hide button based on scroll position
+            window.addEventListener("scroll", () => {
+              if (window.scrollY > 300) {
+                elements.scrollTopBtn.classList.add("visible");
+              } else {
+                elements.scrollTopBtn.classList.remove("visible");
+              }
+            });
+
+            // Scroll to top when button clicked
+            elements.scrollTopBtn.addEventListener("click", () => {
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+              });
+            });
+          }
+          setupScrollToTop();
+        }
         // Start the game
         initGame();
       });

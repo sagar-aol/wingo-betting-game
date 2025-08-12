@@ -39,17 +39,19 @@
         top: 0;
         left: 0;
         right: 0;
-        text-align: center;
         z-index: 10;
+        text-align: center;
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
         gap: 20px;
         padding: 5px 0 10px;
         background: rgba(10, 10, 25, 0.7);
         backdrop-filter: blur(5px);
         border-radius: 0 0 50% 50%;
         height: 7rem;
+        user-select: none;
       }
 
       .game-title {
@@ -84,7 +86,199 @@
         background: rgba(60, 60, 100, 0.9);
         color: #00c8ff;
       }
+      /* Details Tooltip STYLES */
+      .detail-tooltip {
+        position: absolute;
+        background: rgba(10, 15, 30, 0.95);
+        border: 1px solid #2d4059;
+        border-radius: 8px;
+        padding: 15px;
+        width: 280px;
+        z-index: 1000;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        backdrop-filter: blur(5px);
+      }
 
+      .detail-tooltip.show {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .detail-tooltip {
+        max-width: 90vw;
+        max-height: 80vh;
+        overflow: auto;
+        box-sizing: border-box;
+      }
+
+      .tooltip-header {
+        font-size: 1.1rem;
+        color: #4ecdc4;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #2d4059;
+      }
+
+      .tooltip-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+      }
+
+      .tooltip-label {
+        color: #8d99ae;
+      }
+
+      .tooltip-value {
+        font-weight: bold;
+      }
+
+      .tooltip-value.positive {
+        color: #00b894;
+      }
+
+      .tooltip-value.negative {
+        color: #ff6b6b;
+      }
+
+      /* RULES MODAL STYLES */
+      .rules-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(10, 10, 20, 0.95);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 3000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        padding: 20px;
+      }
+
+      .rules-modal.show {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .rules-content {
+        background: rgba(20, 20, 40, 0.95);
+        border-radius: 15px;
+        padding: 20px;
+        max-width: 800px;
+        width: 90%;
+        max-height: 50vh;
+        overflow-y: auto;
+        position: relative;
+      }
+      .rules-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #4ecdc4;
+      }
+
+      .close-rules {
+        background: none;
+        border: none;
+        color: #ff6b6b;
+        font-size: 1.8rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .close-rules:hover {
+        transform: rotate(90deg);
+      }
+
+      .rules-title {
+        font-size: 2rem;
+        color: #4ecdc4;
+        text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+      }
+
+      .rules-section {
+        margin-bottom: 25px;
+        text-align: justify;
+      }
+
+      .section-header {
+        font-size: 1.4rem;
+        color: #00b894;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .rules-list {
+        padding-left: 30px;
+      }
+
+      .rules-list li {
+        margin-bottom: 12px;
+        line-height: 1.6;
+      }
+
+      .highlight {
+        color: #f39c12;
+        font-weight: bold;
+      }
+
+      .negative {
+        color: #ff6b6b;
+      }
+
+      .positive {
+        color: #00b894;
+      }
+
+      .sound-toggle-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        padding: 10px;
+      }
+
+      .sound-toggle {
+        background: rgba(40, 40, 60, 0.9);
+        border: 2px solid #4ecdc4;
+        border-radius: 50px;
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .sound-toggle:hover {
+        background: rgba(60, 60, 100, 0.9);
+        transform: scale(1.05);
+      }
+
+      .sound-toggle.active {
+        background: rgba(0, 184, 148, 0.4);
+      }
+
+      .sound-toggle i {
+        font-size: 1.2rem;
+        color: #4ecdc4;
+      }
+
+      .sound-toggle span {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      /* HISTORY PANEL */
       .history-panel {
         background: rgba(20, 20, 40, 0.85);
         border-radius: 15px;
@@ -159,11 +353,10 @@
       }
 
       .round-label {
-        font-size: 0.9rem;
+        font-size: 0.5rem;
         color: #4ecdc4;
         margin-bottom: 5px;
-        font-weight: bold;
-        display: none;
+        font-weight: 600;
       }
 
       .numbers-row {
@@ -484,7 +677,7 @@
         color: #ff6b6b;
       }
 
-      /* BETTING MODAL STYLES */
+      /* NEW BETTING MODAL STYLES */
       .betting-modal {
         position: fixed;
         bottom: -1000%;
@@ -501,8 +694,9 @@
         z-index: 1000;
         border: 2px solid #2d4059;
         backdrop-filter: blur(10px);
-        /* max-height: 80vh; */
+        max-height: 80vh;
         overflow-y: auto;
+        user-select: none;
       }
 
       .modal-open {
@@ -513,8 +707,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding-bottom: 10px;
         margin-bottom: 1rem;
-        padding-bottom: 0.5px;
         border-bottom: 2px solid #2d4059;
         position: relative;
       }
@@ -553,9 +747,10 @@
       }
 
       .btn-row {
-        gap: 8px;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        justify-content: center;
       }
 
       .base-btn,
@@ -608,10 +803,9 @@
         color: #f0f0f0;
         font-size: 1rem;
         text-align: center;
-        margin-top: 10px;
-      }
-      .exact-input {
+        appearance: textfield;
         -moz-appearance: textfield;
+        /* margin-top: 10px; */
       }
       .exact-input::-webkit-outer-spin-button,
       .exact-input::-webkit-inner-spin-button {
@@ -621,11 +815,8 @@
       .bet-summary {
         background: rgba(40, 40, 60, 0.9);
         border-radius: 10px;
-        padding: 15px;
-        margin: 20px 0;
-        border: 2px solid #2d4059;
-        text-align: center;
-        margin: 0; background: transparent; padding: 0; border: none
+        background: transparent;
+        border: 0;
       }
 
       .total-amount {
@@ -752,18 +943,49 @@
         padding: 10px;
         font-size: 0.8rem;
         color: #8d99ae;
-        margin-top: 10px;
+        margin: 4rem 0 10px;
+        font-weight: 800;
+        background: linear-gradient(45deg, #ff6b6b, #00b894, #00c8ff);
+        background-clip: border-box;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
+        letter-spacing: 2px;
       }
 
       .version-info {
         position: fixed;
         bottom: 10px;
-        right: 10px;
+        left: 10px;
         font-size: 0.7rem;
-        color: #8d99ae;
+        color: #4ecdc4;
         z-index: 100;
       }
+      .scroll-top-btn {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(40, 40, 60, 0.9);
+        border: 2px solid #4ecdc4;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #4ecdc4;
+        font-size: 1.3rem;
+        z-index: 100;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      }
 
+      .scroll-top-btn.visible {
+        opacity: 1;
+      }
       @media (max-width: 1200px) {
         .game-container {
           grid-template-columns: 1fr;
@@ -805,8 +1027,40 @@
   </head>
   <body>
     <div class="toast" id="toast">Bet placed successfully!</div>
+    <div class="version-info">v21.5</div>
+    <button class="scroll-top-btn" id="scroll-top-btn"><i class="fas fa-arrow-up"></i></button>
 
-    <div class="version-info">WinGO v21.1</div>
+    <div class="detail-tooltip" id="detail-tooltip">
+      <div class="tooltip-header">Bet Details</div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Round:</div>
+        <div class="tooltip-value" id="tooltip-round">11</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Bet Type:</div>
+        <div class="tooltip-value" id="tooltip-type">BIG</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Bet Amount:</div>
+        <div class="tooltip-value" id="tooltip-amount">₹10.00</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Outcome:</div>
+        <div class="tooltip-value negative" id="tooltip-outcome">Loss</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Payout:</div>
+        <div class="tooltip-value positive" id="tooltip-payout">₹0.00</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Fee Deducted:</div>
+        <div class="tooltip-value negative" id="tooltip-fee">₹0.00</div>
+      </div>
+      <div class="tooltip-row">
+        <div class="tooltip-label">Net Profit:</div>
+        <div class="tooltip-value negative" id="tooltip-profit">₹-10.00</div>
+      </div>
+    </div>
 
     <div class="game-header">
       <h1 class="game-title">WinGO</h1>
@@ -841,8 +1095,6 @@
           <button class="timer-btn active" data-time="30">30s</button>
           <button class="timer-btn" data-time="60">1min</button>
           <button class="timer-btn" data-time="180">3min</button>
-          <button class="timer-btn" data-time="300">5min</button>
-          <button class="timer-btn" data-time="300">10min</button>
         </div>
 
         <div class="timer-section">
@@ -900,20 +1152,18 @@
 
     <div class="history-end">End of history</div>
 
-    <!-- NEW BETTING MODAL -->
+    <!-- BETTING MODAL -->
     <div class="betting-modal" id="betting-modal">
       <div class="modal-header">
-        <!-- <div class="modal-title" id="modal-bet-type">Select Big</div>
-        <button class="close-modal" id="close-modal"><i class="fas fa-times"></i></button>
-      </div> -->
         <div style="display: flex; align-items: center; gap: 15px">
           <div class="modal-title" id="modal-bet-type">Big</div>
-          <div class="bet-summary" style="margin: 0; background: transparent; padding: 0; border: none">
-            <div class="total-amount">₹<span id="total-bet">1</span></div>
+          <div class="bet-summary">
+            <div class="total-amount">₹<span id="total-bet">Enter Amount</span></div>
           </div>
         </div>
         <button class="close-modal" id="close-modal"><i class="fas fa-times"></i></button>
       </div>
+
       <!-- Base Amounts -->
       <div class="modal-section">
         <div class="section-title"><i class="fas fa-rupee-sign"></i> Base Amount</div>
@@ -957,14 +1207,8 @@
 
       <!-- Exact Amount -->
       <div class="modal-section">
-        <div class="section-title"><i class="fas fa-keyboard"></i> Exact Amount</div>
-        <input id="exact-input" class="exact-input" type="number" placeholder="Enter exact amount" />
+        <input id="exact-input" class="exact-input" type="number" placeholder="Enter Amount" />
       </div>
-
-      <!-- Bet Summary
-      <div class="bet-summary">
-        <div class="total-amount">₹<span id="total-bet">1</span></div>
-      </div> -->
 
       <!-- Actions -->
       <div class="modal-buttons">
@@ -973,11 +1217,57 @@
       </div>
     </div>
 
+    <!-- Rules Modal -->
+    <div class="rules-modal" id="rules-modal">
+      <div class="rules-content">
+        <div class="rules-header">
+          <h2 class="rules-title">Game Rules</h2>
+          <button class="close-rules" id="close-rules">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="rules-section">
+          <h3 class="section-header"><i class="fas fa-dice"></i> Game Overview</h3>
+          <ul class="rules-list">
+            <li>WinGO is a number betting game where players bet on whether a randomly generated number (0-9) will be in the <span class="highlight">BIG (5-9)</span> or <span class="highlight">SMALL (0-4)</span> range</li>
+            <li>Each round lasts 30 seconds, after which a random number is generated</li>
+            <li>Players can place multiple bets during each round</li>
+          </ul>
+        </div>
+
+        <div class="rules-section">
+          <h3 class="section-header"><i class="fas fa-coins"></i> Betting Modal</h3>
+          <ul class="rules-list">
+            <li><span class="highlight">Base Amount:</span> Lets you select ₹1, ₹10, ₹100, or ₹1000 as your base amount</li>
+            <li><span class="highlight"> Quick Adjust:</span> Quick Add / Subtract buttons for ease of use</li>
+            <li><span class="highlight">Multiplier:</span> Multiply your base amount (×1 to ×100)</li>
+            <li><span class="highlight">Enter Amount:</span> Manually type in desired amount</li>
+          </ul>
+        </div>
+
+        <div class="rules-section">
+          <h3 class="section-header"><i class="fas fa-trophy"></i> Winning &amp; Payouts</h3>
+          <ul class="rules-list">
+            <li>If you bet on BIG and the number is 5-9, you win!</li>
+            <li>If you bet on SMALL and the number is 0-4, you win!</li>
+            <li>Winning bets pay out at <span class="highlight">1.96×</span> the bet amount</li>
+            <li>The dealer takes a <span class="highlight">2% fee</span> on all winning bets</li>
+            <li>Example: A ₹100 winning bet pays ₹196 (₹100 × 1.96), with ₹4 fee to dealer</li>
+          </ul>
+        </div>
+
+        <!-- Sound Toggle Inside Rules Modal -->
+        <div class="sound-toggle-container">
+          <div class="sound-toggle" id="sound-toggle"><i class="fas fa-volume-mute"></i><span>Sound OFF</span></div>
+        </div>
+      </div>
+    </div>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         // Game configuration
         const config = {
-          startingWallet: 2000,
+          startingWallet: 5000,
           feePercentage: 0.02,
           roundDuration: 30,
           payoutMultiplier: 1.96
@@ -1005,6 +1295,13 @@
 
         // DOM elements
         const elements = {
+          toast: document.getElementById("toast"),
+          infoBtn: document.getElementById("info-btn"),
+          rulesModal: document.getElementById("rules-modal"),
+          closeRules: document.getElementById("close-rules"),
+          soundToggle: document.getElementById("sound-toggle"),
+          detailTooltip: document.getElementById("detail-tooltip"),
+          timerBtns: document.querySelectorAll(".timer-btn"),
           timer: document.getElementById("timer"),
           walletAmount: document.getElementById("wallet-amount"),
           dealerAmount: document.getElementById("dealer-amount"),
@@ -1024,21 +1321,20 @@
           playerHistory: document.getElementById("player-history"),
           mobileGameHistory: document.getElementById("mobile-game-history"),
           mobilePlayerHistory: document.getElementById("mobile-player-history"),
-          toast: document.getElementById("toast"),
-          infoBtn: document.getElementById("info-btn"),
-          timerBtns: document.querySelectorAll(".timer-btn")
+          scrollTopBtn: document.getElementById("scroll-top-btn"),
+          // Tooltip elements
+          tooltipRound: document.getElementById("tooltip-round"),
+          tooltipType: document.getElementById("tooltip-type"),
+          tooltipAmount: document.getElementById("tooltip-amount"),
+          tooltipOutcome: document.getElementById("tooltip-outcome"),
+          tooltipPayout: document.getElementById("tooltip-payout"),
+          tooltipFee: document.getElementById("tooltip-fee"),
+          tooltipProfit: document.getElementById("tooltip-profit")
         };
 
         // Timer interval variable
         let timerInterval = null;
-
-        // Long press variables
-        const LONG_PRESS_DELAY = 350;
-        const REPEAT_INTERVAL = 120;
-        let holdTimer,
-          repeatTimer,
-          isLongPress = false;
-        let override = false;
+        let tooltipTimeout = null;
 
         // Initialize game
         function initGame() {
@@ -1047,7 +1343,7 @@
           startTimer();
           setupEventListeners();
           activateDefaultButtons();
-          updateGameHistory();
+          updateSoundToggleUI();
         }
 
         // Generate initial game history
@@ -1061,7 +1357,6 @@
           }
           // Set current round to 11
           gameState.round = 11;
-          updateGameHistory();
         }
 
         // Update all UI elements
@@ -1071,6 +1366,147 @@
           updateTimer();
           updateGameHistory();
           updatePlayerHistory();
+        }
+
+        // Rules modal
+        function setupEventListeners() {
+          elements.infoBtn.addEventListener("click", () => {
+            elements.rulesModal.classList.add("show");
+          });
+
+          elements.closeRules.addEventListener("click", () => {
+            elements.rulesModal.classList.remove("show");
+          });
+
+          elements.rulesModal.addEventListener("click", (e) => {
+            if (e.target === elements.rulesModal) {
+              elements.rulesModal.classList.remove("show");
+            }
+          });
+
+          // Bet buttons
+          elements.bigBtn.addEventListener("click", () => openBetModal("big"));
+          elements.smallBtn.addEventListener("click", () => openBetModal("small"));
+
+          // Modal buttons
+          elements.closeModal.addEventListener("click", () => {
+            elements.bettingModal.classList.remove("modal-open");
+          });
+
+          elements.cancelBet.addEventListener("click", () => {
+            elements.bettingModal.classList.remove("modal-open");
+          });
+
+          elements.confirmBet.addEventListener("click", placeBet);
+
+          // Close modal when clicking outside
+          elements.bettingModal.addEventListener("click", function (e) {
+            if (e.target === this) {
+              elements.bettingModal.classList.remove("modal-open");
+            }
+          });
+
+          // Base buttons
+          elements.baseBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const val = Number(btn.dataset.base);
+              elements.baseBtns.forEach((b) => b.classList.remove("active"));
+              btn.classList.add("active");
+              gameState.baseAmount = val;
+              updateBetSummary();
+            });
+          });
+
+          // Multiplier buttons
+          elements.multBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const val = Number(btn.dataset.m);
+              elements.multBtns.forEach((b) => b.classList.remove("active"));
+              btn.classList.add("active");
+              gameState.multiplier = val;
+              updateBetSummary();
+            });
+          });
+
+          // Quick buttons
+          elements.quickBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const val = Number(btn.dataset.add);
+              gameState.extraAdjustment += val;
+              updateBetSummary();
+            });
+          });
+
+          // Exact amount input
+          elements.exactInput.addEventListener("input", (e) => {
+            const val = Number(e.target.value);
+            if (!isNaN(val) && e.target.value !== "") {
+              gameState.extraAdjustment = val;
+              updateBetSummary();
+            }
+          });
+
+          // Timer buttons
+          elements.timerBtns.forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              const seconds = parseInt(e.target.dataset.time);
+              gameState.selectedTime = seconds;
+              config.roundDuration = seconds;
+              gameState.timer = seconds;
+              updateTimer();
+              elements.timerBtns.forEach((b) => b.classList.remove("active"));
+              e.target.classList.add("active");
+            });
+          });
+
+          // Add funds by double-clicking wallet
+          elements.walletAmount.addEventListener("dblclick", addFunds);
+
+          // History hover events using event delegation
+          document.addEventListener("mouseover", (e) => {
+            const historyItem = e.target.closest(".history-row, .player-history-item");
+            if (historyItem && historyItem.dataset.round) {
+              showBetDetails(historyItem, e);
+            }
+          });
+
+          document.addEventListener("mouseout", () => {
+            clearTimeout(tooltipTimeout);
+            tooltipTimeout = setTimeout(() => {
+              elements.detailTooltip.classList.remove("show");
+            }, 300);
+          });
+
+          // Keep tooltip visible when hovering over it
+          elements.detailTooltip.addEventListener("mouseover", () => {
+            clearTimeout(tooltipTimeout);
+          });
+
+          elements.detailTooltip.addEventListener("mouseout", () => {
+            tooltipTimeout = setTimeout(() => {
+              elements.detailTooltip.classList.remove("show");
+            }, 100);
+          });
+
+          // Sound toggle
+          elements.soundToggle.addEventListener("click", toggleSound);
+
+          // Setup scroll to top button
+          window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+              elements.scrollTopBtn.classList.add("visible");
+            } else {
+              elements.scrollTopBtn.classList.remove("visible");
+            }
+          });
+
+          // Scroll to top when button clicked
+          elements.scrollTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          });
         }
 
         // Update wallet display
@@ -1185,7 +1621,12 @@
         // End the current round
         function endRound() {
           clearInterval(timerInterval);
+
+          // Play end sound
           gameState.gameActive = false;
+          if (gameState.soundEnabled) {
+            playSound(440, 200);
+          }
 
           // Generate random number (0-9)
           const resultNumber = Math.floor(Math.random() * 10);
@@ -1233,6 +1674,7 @@
           gameState.multiplier = 1;
           gameState.quantity = 1;
           gameState.extraAdjustment = 0;
+          elements.exactInput.value = "";
           updateBetSummary();
         }
 
@@ -1244,7 +1686,7 @@
           }
 
           gameState.currentBetType = type;
-          elements.modalBetType.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)}`;
+          elements.modalBetType.textContent = type.charAt(0).toUpperCase() + type.slice(1);
           resetBettingModal();
           activateDefaultButtons();
           elements.bettingModal.classList.add("modal-open");
@@ -1260,24 +1702,13 @@
 
         // Update bet summary display
         function updateBetSummary() {
-          const baseAmount = gameState.baseAmount;
-          const multiplier = gameState.multiplier;
-          const extraAdjustment = gameState.extraAdjustment;
-
-          const totalBet = baseAmount * multiplier + extraAdjustment;
-          elements.totalBet.textContent = totalBet.toLocaleString("en-IN", {
-            maximumFractionDigits: 2,
-            minimumFractionDigits: 2
-          });
+          const totalBet = gameState.baseAmount * gameState.multiplier + gameState.extraAdjustment;
+          elements.totalBet.textContent = totalBet > 0 ? totalBet.toLocaleString("en-IN", { maximumFractionDigits: 2, minimumFractionDigits: 2 }) : "Enter Amount";
         }
 
         // Place a bet
         function placeBet() {
-          const baseAmount = gameState.baseAmount;
-          const multiplier = gameState.multiplier;
-          const extraAdjustment = gameState.extraAdjustment;
-
-          const totalBet = baseAmount * multiplier + extraAdjustment;
+          const totalBet = gameState.baseAmount * gameState.multiplier + gameState.extraAdjustment;
 
           if (totalBet < 1) {
             showToast("Minimum bet is ₹1");
@@ -1305,9 +1736,8 @@
 
           elements.bettingModal.classList.remove("modal-open");
           resetBettingModal();
-          updatePlayerHistory();
+          updateUI();
           showToast(`Bet placed: ₹${totalBet.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} on ${gameState.currentBetType}`);
-          updateWallet();
         }
 
         // Add funds to wallet
@@ -1343,157 +1773,90 @@
           }, 3000);
         }
 
-        // Long press functionality
-        function addLongPress(el, onClick, onHold) {
-          el.addEventListener("click", () => {
-            if (isLongPress) {
-              isLongPress = false;
-              return;
-            }
-            onClick();
-          });
-
-          el.addEventListener("pointerdown", () => {
-            isLongPress = false;
-            holdTimer = setTimeout(() => {
-              isLongPress = true;
-              onHold();
-              repeatTimer = setInterval(onHold, REPEAT_INTERVAL);
-            }, LONG_PRESS_DELAY);
-          });
-
-          ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => {
-            el.addEventListener(ev, () => {
-              clearTimeout(holdTimer);
-              clearInterval(repeatTimer);
-            });
-          });
-        }
-
-        function clearOverride() {
-          if (override) {
-            override = false;
-            elements.exactInput.value = "";
+        // Play sound effect
+        function playSound(frequency, duration) {
+          try {
+            const context = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = context.createOscillator();
+            oscillator.type = "sine";
+            oscillator.frequency.setValueAtTime(frequency, context.currentTime);
+            oscillator.connect(context.destination);
+            oscillator.start();
+            setTimeout(() => oscillator.stop(), duration);
+          } catch (e) {
+            console.log("Audio not supported in this environment");
           }
         }
 
-        function setTotal(v) {
-          gameState.extraAdjustment = v;
-          updateBetSummary();
+        // Update sound toggle UI
+        function updateSoundToggleUI() {
+          if (gameState.soundEnabled) {
+            elements.soundToggle.innerHTML = '<i class="fas fa-volume-up"></i><span>Sound ON</span>';
+            elements.soundToggle.classList.add("active");
+          } else {
+            elements.soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i><span>Sound OFF</span>';
+            elements.soundToggle.classList.remove("active");
+          }
         }
 
-        // Set up event listeners
-        function setupEventListeners() {
-          // Bet buttons
-          elements.bigBtn.addEventListener("click", () => openBetModal("big"));
-          elements.smallBtn.addEventListener("click", () => openBetModal("small"));
+        // Toggle sound on/off
+        function toggleSound() {
+          gameState.soundEnabled = !gameState.soundEnabled;
+          updateSoundToggleUI();
 
-          // Modal buttons
-          elements.closeModal.addEventListener("click", () => {
-            elements.bettingModal.classList.remove("modal-open");
-          });
+          if (gameState.soundEnabled) {
+            playSound(330, 100); // Play confirmation sound
+          }
+        }
 
-          elements.cancelBet.addEventListener("click", () => {
-            elements.bettingModal.classList.remove("modal-open");
-          });
+        // Show bet details tooltip
+        function showBetDetails(item, event) {
+          clearTimeout(tooltipTimeout);
 
-          elements.confirmBet.addEventListener("click", placeBet);
+          // Position tooltip to stay within viewport
+          const viewportWidth = window.innerWidth;
+          const viewportHeight = window.innerHeight;
+          const tooltipWidth = elements.detailTooltip.offsetWidth;
+          const tooltipHeight = elements.detailTooltip.offsetHeight;
 
-          // Close modal when clicking outside
-          elements.bettingModal.addEventListener("click", function (e) {
-            if (e.target === this) {
-              elements.bettingModal.classList.remove("modal-open");
-            }
-          });
+          let left = event.clientX + 20;
+          let top = event.clientY - 20;
 
-          // Base buttons with long press
-          elements.baseBtns.forEach((btn) => {
-            const val = Number(btn.dataset.base);
-            addLongPress(
-              btn,
-              () => {
-                clearOverride();
-                if (btn.classList.contains("active")) {
-                  setTotal(gameState.extraAdjustment + val);
-                } else {
-                  elements.baseBtns.forEach((b) => b.classList.remove("active"));
-                  btn.classList.add("active");
-                  gameState.baseAmount = val;
-                  setTotal(gameState.extraAdjustment);
-                }
-              },
-              () => {
-                clearOverride();
-                setTotal(gameState.extraAdjustment + val);
-              }
-            );
-          });
+          // Adjust if going off right edge
+          if (left + tooltipWidth > viewportWidth) {
+            left = viewportWidth - tooltipWidth - 20;
+          }
 
-          // Multiplier buttons with long press
-          elements.multBtns.forEach((btn) => {
-            const val = Number(btn.dataset.m);
-            addLongPress(
-              btn,
-              () => {
-                clearOverride();
-                if (btn.classList.contains("active")) {
-                  setTotal(gameState.extraAdjustment * val);
-                } else {
-                  elements.multBtns.forEach((b) => b.classList.remove("active"));
-                  btn.classList.add("active");
-                  gameState.multiplier = val;
-                  setTotal(gameState.extraAdjustment);
-                }
-              },
-              () => {
-                clearOverride();
-                setTotal(gameState.extraAdjustment * val);
-              }
-            );
-          });
+          // Adjust if going off bottom edge
+          if (top + tooltipHeight > viewportHeight) {
+            top = viewportHeight - tooltipHeight - 20;
+          }
 
-          // Quick buttons with long press
-          elements.quickBtns.forEach((btn) => {
-            const val = Number(btn.dataset.add);
-            addLongPress(
-              btn,
-              () => {
-                clearOverride();
-                setTotal(gameState.extraAdjustment + val);
-              },
-              () => {
-                clearOverride();
-                setTotal(gameState.extraAdjustment + val);
-              }
-            );
-          });
+          elements.detailTooltip.style.left = `${left}px`;
+          elements.detailTooltip.style.top = `${top}px`;
 
-          // Exact amount input
-          elements.exactInput.addEventListener("input", (e) => {
-            const v = Number(e.target.value);
-            if (!isNaN(v) && e.target.value !== "") {
-              override = true;
-              setTotal(v);
-            } else {
-              override = false;
-            }
-          });
+          const round = item.dataset.round;
+          const type = item.dataset.type;
+          const amount = parseFloat(item.dataset.amount) || 0;
+          const outcome = item.dataset.outcome || "pending";
 
-          // Timer buttons
-          elements.timerBtns.forEach((btn) => {
-            btn.addEventListener("click", (e) => {
-              const seconds = parseInt(e.target.dataset.time);
-              gameState.selectedTime = seconds;
-              config.roundDuration = seconds;
-              gameState.timer = seconds;
-              updateTimer();
-              elements.timerBtns.forEach((b) => b.classList.remove("active"));
-              e.target.classList.add("active");
-            });
-          });
+          // Calculate details
+          const payout = outcome === "win" ? Math.floor(amount * config.payoutMultiplier) : 0;
+          const fee = outcome === "win" ? amount * config.feePercentage : 0;
+          const profit = outcome === "win" ? payout - amount : -amount;
 
-          // Add funds by double-clicking wallet
-          elements.walletAmount.addEventListener("dblclick", addFunds);
+          // Update tooltip
+          elements.tooltipRound.textContent = round;
+          elements.tooltipType.textContent = type ? type.toUpperCase() : "N/A";
+          elements.tooltipAmount.textContent = `₹${amount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          elements.tooltipOutcome.textContent = outcome.charAt(0).toUpperCase() + outcome.slice(1);
+          elements.tooltipOutcome.className = outcome === "win" ? "tooltip-value positive" : outcome === "loss" ? "tooltip-value negative" : "tooltip-value";
+          elements.tooltipPayout.textContent = `₹${payout.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          elements.tooltipFee.textContent = `₹${fee.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          elements.tooltipProfit.textContent = `₹${profit.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          elements.tooltipProfit.className = profit >= 0 ? "tooltip-value positive" : "tooltip-value negative";
+
+          elements.detailTooltip.classList.add("show");
         }
 
         // Start the game
